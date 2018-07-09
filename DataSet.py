@@ -1,7 +1,7 @@
-from Musician2 import *
+from Musician import *
 from tkinter import *
 
-class DataSet2:
+class DataSet:
 
     def __init__(self, MusicianList):
         self.MusicianList = MusicianList

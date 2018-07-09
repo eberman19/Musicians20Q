@@ -1,6 +1,6 @@
 import csv
 
-class Musician2:
+class Musician:
 
     Characteristic = ["Rock","R&B","Pop","Country","Hip Hop","Band", "Male", "White", "Alive"]
     Genre = ["Rock","R&B","Pop","Country","Hip Hop"]
