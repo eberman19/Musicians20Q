@@ -1,6 +1,7 @@
-from Musician import *
+from Musician2 import *
+from tkinter import *
 
-class DataSet:
+class DataSet2:
 
     def __init__(self, MusicianList):
         self.MusicianList = MusicianList
@@ -8,6 +9,7 @@ class DataSet:
         self.ratio = self.updateratio()
         self.FrequentTopic = self.updateFrequentTopic()
         self.ZeroCount = self.updateZeroCount()
+        
 
     def updateGenreCount(self):
         GenreCount = [0,0,0,0,0]
@@ -24,17 +26,20 @@ class DataSet:
                 GenreCount[4] += int(self.MusicianList[x].Frequency)
         return GenreCount
 
-    def updateratio(self):
-        ratio = [0,0,0,0]
+    def updateratio(self, weight=lambda musician: 1):
+        ratio = [0,0,0,0,0,0,0,0,0]
         for x in range(self.MusicianList[0].NCharacteristics):
-            count = 0
+            count1 = 0
+            count0 = 0
             for k in range(len(self.MusicianList)):
                 if self.MusicianList[k].Characteristics[x] == '1':
-                    count += 1
-            if (count < ((len(self.MusicianList))-count)):
-                ratio[x] = (count/((len(self.MusicianList))-count))
+                    count1 += weight(self.MusicianList[k])
+                if self.MusicianList[k].Characteristics[x] == '0':
+                    count0 += weight(self.MusicianList[k])
+            if count1 < count0:
+                ratio[x] = count1/count0
             else :
-                ratio[x] = (((len(self.MusicianList))-count)/count)
+                ratio[x] = count0/count1
         return ratio;
 
     def updateFrequentTopic(self):
@@ -69,13 +74,13 @@ class DataSet:
         self.FrequentTopic = self.updateFrequentTopic()
         self.ZeroCount = self.updateZeroCount()
 
-musicians = []
-RowCount = 0
-with open('MusiciansFile.txt', newline='') as inputfile:
-    for row in csv.reader(inputfile):
-        RowCount = RowCount + 1
-        musicians.append(Musician(row[0], row[1], row[2], row[3], row[4], row[5],row[6], row[7]))
-        
+##musicians = []
+##RowCount = 0
+##with open('MusiciansFile.txt', newline='') as inputfile:
+##    for row in csv.reader(inputfile):
+##        RowCount = RowCount + 1
+##        musicians.append(Musician(row[0], row[1], row[2], row[3], row[4], row[5],row[6], row[7]))
+       
 ##DS = DataSet(musicians)
 ##print(len(DS.MusicianList))
 ##thecount = 0
