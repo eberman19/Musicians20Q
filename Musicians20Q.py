@@ -13,6 +13,7 @@ with open('MusiciansFakeFile.txt', newline='') as inputfile:
 DS = DataSet(musicians)
 
 answer = ""
+
 def YesCallBack():
     answer = "Yes"
     DS.update(answer)
@@ -29,7 +30,7 @@ def NoCallBack():
         v.set("Does the musician/band have this characteristic: %s?" % (Musician.Characteristic[DS.FrequentTopic]))
     if DS.ZeroCount == 9:
         DS.MusicianList.sort(key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
-        v.set("Are you thinking of %s? Yes or No " % (DS.MusicianList[MCount].Name))
+        v.set("Are you thinking of %s?" % (DS.MusicianList[MCount].Name))
 
 root = Tk()
 root.geometry("500x500")
