@@ -2,9 +2,8 @@ from Musician import *
 from DataSet import *
 import csv
 
-def CountQuestions(MusicianNum):
+def CountQuestions(MusicianNum, ds):
     ##pass
-    ds = DataSet(musicians)
     name = ds.MusicianList[MusicianNum].Name
     Mnumber = 0
     QCount = 0
@@ -21,21 +20,22 @@ def CountQuestions(MusicianNum):
             QCount += 1
         else :
             ds.update("No")
-            QCount += 1          
+            QCount += 1
     ds.MusicianList.sort(key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
     for l in range(len(ds.MusicianList)):
         NamesList.append(ds.MusicianList[l].Name)
     MCount = NamesList.index(name)
     TotalCount = MCount + QCount + 1
+    ds.reset()
     return TotalCount;
 
 def RunTest(DS):
     Questions = []
     for x in range(len(DS.MusicianList)):
         #print(x)
-        Questions.append(CountQuestions(x))
-        #Questions.append(CountQuestions(x, DS))
-        print(DS.MusicianList[x].Name, CountQuestions(x))
+   ##    Questions.append(CountQuestions(x))
+        Questions.append(CountQuestions(x, DS))
+        print(DS.MusicianList[x].Name, CountQuestions(x, DS))
 
 if __name__ == "__main__":
     musicians = []
