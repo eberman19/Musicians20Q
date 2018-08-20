@@ -5,6 +5,7 @@ class DataSet:
 
     def __init__(self, MusicianList):
         self.MusicianList = MusicianList
+        self.OriginalMusicianList = MusicianList
         self.GenreCount = self.updateGenreCount()
         self.ratio = self.updateratio()
         self.FrequentTopic = self.updateFrequentTopic()
@@ -70,6 +71,12 @@ class DataSet:
 
     def update(self, YesorNo):
         updated = self.NarrowingOptions(YesorNo)
+        self.ratio = self.updateratio()
+        self.FrequentTopic = self.updateFrequentTopic()
+        self.ZeroCount = self.updateZeroCount()
+
+    def reset(self):
+        self.MusicianList = self.OriginalMusicianList
         self.ratio = self.updateratio()
         self.FrequentTopic = self.updateFrequentTopic()
         self.ZeroCount = self.updateZeroCount()
