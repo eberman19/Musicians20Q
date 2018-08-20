@@ -21,9 +21,9 @@ def CountQuestions(MusicianNum, ds):
         else :
             ds.update("No")
             QCount += 1
-    ds.MusicianList.sort(key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
-    for l in range(len(ds.MusicianList)):
-        NamesList.append(ds.MusicianList[l].Name)
+    SortedMusicianList = sorted(ds.MusicianList, key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
+    NamesList = [Musician.Name for Musician in SortedMusicianList]
+    ##print(NamesList)
     MCount = NamesList.index(name)
     TotalCount = MCount + QCount + 1
     ds.reset()
