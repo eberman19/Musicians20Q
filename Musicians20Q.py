@@ -15,8 +15,7 @@ DS = DataSet(musicians)
 answer = ""
 
 def YesCallBack():
-    answer = "Yes"
-    DS.update(answer)
+    DS.update("Yes")
     if DS.ZeroCount < 9:
         v.set("Does the musician/band have this charactertic: %s?" % (Musician.Characteristic[DS.FrequentTopic]))
     if DS.ZeroCount == 9:
@@ -24,15 +23,19 @@ def YesCallBack():
         v.set("Are you thinking of %s?" % (DS.MusicianList[MCount].Name))
 
 def NoCallBack():
-    answer = "No"
-    DS.update(answer)
+    DS.update("No")
     if DS.ZeroCount < 9:
         v.set("Does the musician/band have this characteristic: %s?" % (Musician.Characteristic[DS.FrequentTopic]))
     if DS.ZeroCount == 9:
         DS.MusicianList.sort(key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
         v.set("Are you thinking of %s?" % (DS.MusicianList[MCount].Name))
+        #MCount = MCount + 1
 
 root = Tk()
+
+game = "not complete"
+MCount = 0
+
 root.geometry("500x500")
 root.configure(background='black')
 b1 = Button(root, text = "Yes",  font = ("Helvetica",20), command = YesCallBack)
@@ -43,9 +46,6 @@ b2.place(relx = 0.75, rely = 0.5, anchor = CENTER)
 v = StringVar()
 Label(root, textvariable=v, bg = "black",fg="white", font=("Helvetica",18)).place(relx = .5, rely = .25, anchor = CENTER)
 v.set("Does the musician/band have this characteristic: %s?" % (Musician.Characteristic[DS.FrequentTopic]))
-
-game = "not complete"
-MCount = 0
 
 mainloop()
                 

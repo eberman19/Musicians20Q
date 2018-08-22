@@ -33,14 +33,19 @@ class DataSet:
             count1 = 0
             count0 = 0
             for k in range(len(self.MusicianList)):
+                
                 if self.MusicianList[k].Characteristics[x] == '1':
                     count1 += weight(self.MusicianList[k])
                 if self.MusicianList[k].Characteristics[x] == '0':
                     count0 += weight(self.MusicianList[k])
             if count1 < count0:
                 ratio[x] = count1/count0
-            else :
-                ratio[x] = count0/count1
+            else:
+                try:
+                    ratio[x] = count0/count1
+                except ZeroDivisionError:
+                    print(count0,count1)
+                    print([mus.Characteristics[x] for mus in self.MusicianList])
         return ratio;
 
     def updateFrequentTopic(self):

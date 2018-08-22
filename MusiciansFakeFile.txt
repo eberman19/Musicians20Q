@@ -60,7 +60,7 @@ Ariana Grande,0,0,1,0,0,0,0,1,1,Brown,0
 Demi Lovato,0,0,1,0,0,0,0,1,1,Brown,0
 Maroon 5,0,0,1,0,0,1,1,1,1,NIL,0
 Justin Timberlake,0,0,1,0,0,0,1,1,1,Brown,0
-P!nk,0,0,1,0,0,0,0,1,1,Blonde,0
+P!nk,0,0,1,0,0,0,0,1,1,Blonde,1
 Sam Smith,0,0,1,0,0,0,1,1,1,Brown,0
 Gwen Stefani,0,0,1,0,0,0,0,1,1,Blonde,0
 Kesha,0,0,1,0,0,0,0,1,1,Blonde,0
