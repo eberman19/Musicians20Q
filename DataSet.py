@@ -10,6 +10,8 @@ class DataSet:
         self.ratio = self.updateratio()
         self.FrequentTopic = self.updateFrequentTopic()
         self.ZeroCount = self.updateZeroCount()
+        self.mode = 1
+        self.game = "incomplete"
         
 
     def updateGenreCount(self):
@@ -62,29 +64,65 @@ class DataSet:
         return ZeroCount;
 
     def NarrowingOptions(self, YesorNo):
-        optionstemp = []
-        if YesorNo == "Yes":
-            for x in range(len(self.MusicianList)):
-                if self.MusicianList[x].Characteristics[self.FrequentTopic] == "1":
-                    optionstemp.append(self.MusicianList[x])
-        elif YesorNo == "No":
-            for x in range(len(self.MusicianList)):
-                if self.MusicianList[x].Characteristics[self.FrequentTopic] != "1":
-                    optionstemp.append(self.MusicianList[x])
-        self.MusicianList = optionstemp
+        if self.mode == 1:
+            optionstemp = []
+            if YesorNo == "Yes":
+                for x in range(len(self.MusicianList)):
+                    if self.MusicianList[x].Characteristics[self.FrequentTopic] == "1":
+                        optionstemp.append(self.MusicianList[x])
+            elif YesorNo == "No":
+                for x in range(len(self.MusicianList)):
+                    if self.MusicianList[x].Characteristics[self.FrequentTopic] != "1":
+                        optionstemp.append(self.MusicianList[x])
+            self.MusicianList = optionstemp
+        if self.mode == 2:
+            if YesorNo == "No":
+                self.MusicianList=self.MusicianList[1::]
+                if len(self.MusicianList) == 0:
+                    self.game = "lost"
+            if YesorNo == "Yes":
+                self.MusicianList=self.MusicianList[:1]
+                self.game = "complete"
         return self.MusicianList;
 
     def update(self, YesorNo):
         updated = self.NarrowingOptions(YesorNo)
-        self.ratio = self.updateratio()
-        self.FrequentTopic = self.updateFrequentTopic()
-        self.ZeroCount = self.updateZeroCount()
+        if self.mode == 1:
+            self.ratio = self.updateratio()
+            self.FrequentTopic = self.updateFrequentTopic()
+            self.ZeroCount = self.updateZeroCount()
 
     def reset(self):
         self.MusicianList = self.OriginalMusicianList
         self.ratio = self.updateratio()
         self.FrequentTopic = self.updateFrequentTopic()
         self.ZeroCount = self.updateZeroCount()
+
+    def print(self, FileName):
+        f = open(FileName,'w')
+        for x in range(len(self.OriginalMusicianList)):
+            f.write(self.OriginalMusicianList[x].CSV)
+        f.close()
+
+    def setprompt(self):
+        question = str()
+        if self.ZeroCount < 9:
+            question=("Does the musician/band have this charactertic: %s?" % (Musician.Characteristic[self.FrequentTopic]))
+        if self.ZeroCount == 9:
+            self.mode = 2
+            if self.game == "complete":
+                question = "I got it! Thanks for playing."
+                for x in range(len(self.OriginalMusicianList)):
+                    if self.MusicianList[0].Name == self.OriginalMusicianList[x].Name:
+                        self.OriginalMusicianList[x].setFrequency(str(int(self.OriginalMusicianList[x].Frequency) + 1))
+                self.print('MusiciansFakeFile.txt')
+            elif self.game == "lost":
+                question = "I'm sorry. I do not know who you are thinking of."
+            else:
+                self.MusicianList.sort(key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
+                question=("Are you thinking of %s?" % (self.MusicianList[0].Name))
+            
+        return question
 
 ##musicians = []
 ##RowCount = 0
