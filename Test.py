@@ -3,7 +3,6 @@ from DataSet import *
 import csv
 
 def CountQuestions(MusicianNum, ds):
-    ##pass
     name = ds.MusicianList[MusicianNum].Name
     Mnumber = 0
     QCount = 0
@@ -23,7 +22,6 @@ def CountQuestions(MusicianNum, ds):
             QCount += 1
     SortedMusicianList = sorted(ds.MusicianList, key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
     NamesList = [Musician.Name for Musician in SortedMusicianList]
-    ##print(NamesList)
     MCount = NamesList.index(name)
     TotalCount = MCount + QCount + 1
     ds.reset()
@@ -31,11 +29,17 @@ def CountQuestions(MusicianNum, ds):
 
 def RunTest(DS):
     Questions = []
+    FullCount = 0
     for x in range(len(DS.MusicianList)):
-        #print(x)
-   ##    Questions.append(CountQuestions(x))
         Questions.append(CountQuestions(x, DS))
         print(DS.MusicianList[x].Name, CountQuestions(x, DS))
+    f = open('MusiciansTestData2.txt','w')
+    for x in range(len(DS.OriginalMusicianList)):
+        f.write(DS.OriginalMusicianList[x].Name + " , " + str(CountQuestions(x, DS)) + "\n")
+    FullCount = sum(Questions)
+    f.write("\n" + "\n" + "\n" + str(FullCount))
+    print(FullCount)
+    f.close()
 
 if __name__ == "__main__":
     musicians = []

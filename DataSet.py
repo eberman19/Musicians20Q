@@ -13,7 +13,6 @@ class DataSet:
         self.mode = 1
         self.game = "incomplete"
         
-
     def updateGenreCount(self):
         GenreCount = [0,0,0,0,0]
         for x in range(len(self.MusicianList)):
@@ -29,7 +28,8 @@ class DataSet:
                 GenreCount[4] += int(self.MusicianList[x].Frequency)
         return GenreCount
 
-    def updateratio(self, weight=lambda musician: 1):
+    def updateratio(self, weight=lambda musician: int(musician.Frequency)): #this splits data closest to equal probabilities (frequencies) on both sides.
+        #(self, weight=lambda musician: 1): #would split data according to equal # of musicians on both sides
         ratio = [0,0,0,0,0,0,0,0,0]
         for x in range(self.MusicianList[0].NCharacteristics):
             count1 = 0
@@ -46,8 +46,7 @@ class DataSet:
                 try:
                     ratio[x] = count0/count1
                 except ZeroDivisionError:
-                    print(count0,count1)
-                    print([mus.Characteristics[x] for mus in self.MusicianList])
+                    print(count0,count1,[mus.Characteristics[x] for mus in self.MusicianList])
         return ratio;
 
     def updateFrequentTopic(self):
@@ -120,26 +119,5 @@ class DataSet:
                 question = "I'm sorry. I do not know who you are thinking of."
             else:
                 self.MusicianList.sort(key=lambda MusicianGuess: MusicianGuess.Frequency, reverse = True)
-                question=("Are you thinking of %s?" % (self.MusicianList[0].Name))
-            
+                question=("Are you thinking of %s?" % (self.MusicianList[0].Name))           
         return question
-
-##musicians = []
-##RowCount = 0
-##with open('MusiciansFile.txt', newline='') as inputfile:
-##    for row in csv.reader(inputfile):
-##        RowCount = RowCount + 1
-##        musicians.append(Musician(row[0], row[1], row[2], row[3], row[4], row[5],row[6], row[7]))
-       
-##DS = DataSet(musicians)
-##print(len(DS.MusicianList))
-##thecount = 0
-##for x in range(len(DS.MusicianList)):
-##    if DS.MusicianList[x].Characteristics[DS.FrequentTopic] == "0":
-##        thecount += 1
-##print(thecount)
-##        
-##DS.NarrowingOptions("No")
-##print(DS.FrequentTopic)
-##print(DS.MusicianList[0].Characteristics[DS.FrequentTopic])
-##print(len(DS.MusicianList))

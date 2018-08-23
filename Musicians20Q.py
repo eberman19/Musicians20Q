@@ -3,7 +3,6 @@ from tkinter import *
 from Musician import *
 from DataSet import *
 
-options2 = []
 musicians = []
 RowCount = 0
 with open('MusiciansFakeFile.txt', newline='') as inputfile:
@@ -23,7 +22,6 @@ def NoCallBack():
     v.set(question)
 
 root = Tk()
-
 root.geometry("500x500")
 root.configure(background='black')
 b1 = Button(root, text = "Yes",  font = ("Helvetica",20), command = YesCallBack)
