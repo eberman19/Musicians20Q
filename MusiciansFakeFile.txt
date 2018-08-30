@@ -36,7 +36,7 @@ Stevie Wonder,0,1,0,0,0,0,1,0,1,Black,0
 Mariah Carey,0,1,0,0,0,0,0,0,1,Blonde,0
 Janet Jackson,0,1,0,0,0,0,0,0,1,Brown,0
 Kanye West,0,1,0,0,0,0,1,0,1,Black,0
-Aretha Franklin,0,1,0,0,0,0,0,0,1,Black,0
+Aretha Franklin,0,1,0,0,0,0,0,0,0,Black,2
 Michael Jackson,0,1,0,0,0,0,1,0,0,Black,0
 Frank Ocean,0,1,0,0,0,0,1,0,1,Black,0
 Jay Z,0,1,0,0,0,0,1,0,1,Black,0
